@@ -4,7 +4,7 @@ use crate::game_objects::entities::player_movement::Controllable;
 
 pub fn move_camera(
     mut camera_query: Query<(&Camera, &mut Transform)>,
-    mut player_query: Query<(&Controllable, &Transform)>
+    player_query: Query<(&Controllable, &Transform), Without<Camera>>
 ) {
     let (_, player_loc) = player_query.single();
     for (_, mut camera_loc) in &mut camera_query{

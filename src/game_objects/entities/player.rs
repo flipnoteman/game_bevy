@@ -2,15 +2,17 @@ use bevy::ecs::bundle::Bundle;
 use bevy::sprite::{SpriteSheetBundle, TextureAtlas};
 use std::default::Default;
 use bevy::asset::{Assets, AssetServer};
-use bevy::math::Vec3;
-use bevy::prelude::{Commands, Res, ResMut, Transform};
+use bevy::math::{Vec2, Vec3};
+use bevy::prelude::{Commands, ResMut, Transform};
 use bevy::time::{Timer, TimerMode};
 use bevy::utils::default;
 use player_movement::Controllable;
-use crate::entities::entity::Name;
-use crate::entities::entity::Health;
-use crate::entities::player_movement;
+
+use crate::game_objects::game_object::Name;
+use crate::game_objects::entities::entity::Health;
+use crate::game_objects::entities::player_movement;
 use crate::util;
+use crate::util::animation::AnimationState;
 
 
 /// Main Player Bundle
@@ -36,13 +38,18 @@ impl PlayerBundle {
                 texture_atlas: util::asset_handling::load_texture(
                     asset_server,
                     texture_atlas_server,
-                    "Player Sword Run/Player Sword Run 48x48.png".to_string()),
+                    "Player Sword Run/Player Sword Run 48x48.png".to_string(),
+                    Vec2::new(48.0, 48.0),
+                    8,
+                    1,
+                ),
                 transform: bevy::prelude::Transform::from_scale(Vec3::splat(2.0)),
                 ..default()
             }
         },
             util::animation::AnimationTimer(Timer::from_seconds(0.1, TimerMode::Repeating)),
-            Controllable
+            Controllable,
+            AnimationState::IDLE
         ));
     }
 }
