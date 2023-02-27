@@ -9,7 +9,7 @@ use crate::game_objects::game_object::Name;
 #[derive(Bundle)]
 pub struct PropBundle{
     pub name: Name,
-    pub position: Vec2,
+    /*pub position: Vec2,*/
 
     #[bundle]
     pub model: SpriteBundle
@@ -23,7 +23,7 @@ impl PropBundle {
     pub fn default() -> PropBundle{
         PropBundle{
             name: Name("Prop".to_string()),
-            position: Vec2::ZERO,
+           /* position: Vec2::ZERO,*/
             model: Default::default()
         }
     }

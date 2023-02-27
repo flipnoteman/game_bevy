@@ -22,26 +22,26 @@ impl EnemyBundle {
     pub fn spawn_enemy( mut commands: Commands,
                          asset_server: ResMut<AssetServer>,
                          texture_atlas_server: ResMut<Assets<TextureAtlas>>) {
-        commands.spawn((
-            EnemyBundle {
-                name: Name(("Sam").to_string()),
-                health: Health(10),
-                model: SpriteSheetBundle {
-                    texture_atlas: util::asset_handling::load_texture(
-                        asset_server,
-                        texture_atlas_server,
-                        "Player Death/Player Death 64x64.png".to_string(),
-                        Vec2::new(64.0, 64.0),
-                        10,
-                        1,
-                    ),
-                    transform: bevy::prelude::Transform::from_scale(Vec3::splat(2.0)),
-                    ..default()
-                }
-            },
-            util::animation::AnimationTimer(Timer::from_seconds(0.1, TimerMode::Repeating)),
-            AnimationState::MOVING
-        ));
+        // commands.spawn((
+        //     EnemyBundle {
+        //         name: Name(("Sam").to_string()),
+        //         health: Health(10),
+        //         model: SpriteSheetBundle {
+        //             texture_atlas: util::asset_handling::load_texture(
+        //                 asset_server,
+        //                 texture_atlas_server,
+        //                 "Player Death/Player Death 64x64.png".to_string(),
+        //                 Vec2::new(64.0, 64.0),
+        //                 10,
+        //                 1,
+        //             ),
+        //             transform: bevy::prelude::Transform::from_scale(Vec3::splat(2.0)),
+        //             ..default()
+        //         }
+        //     },
+        //     util::animation::AnimationTimer(Timer::from_seconds(0.1, TimerMode::Repeating)),
+        //     AnimationState::MOVING
+        // ));
     }
 }
 
