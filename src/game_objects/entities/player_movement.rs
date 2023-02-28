@@ -1,11 +1,11 @@
 use bevy::prelude::*;
+use crate::game_objects::entities::player::Player;
 
-#[derive(Component)]
-pub struct Controllable;
-
+/// Provide player movement when pressing left or right
+/// ToDo: Implement other movement types (Probably after physics has been implemented)
 pub fn player_move(
     key: Res<Input<KeyCode>>,
-    mut player_query: Query<(&Controllable, &mut Transform)>
+    mut player_query: Query<(&Player, &mut Transform)>
 )
 {
     if key.pressed(KeyCode::D) {

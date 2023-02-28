@@ -15,3 +15,4 @@ opt-level = 3
 
 [dependencies]
 bevy = "0.9.1"
+bevy_asset_loader = { version = "0.14.1", features = ["2d"]}
