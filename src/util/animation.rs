@@ -17,3 +17,7 @@ pub fn animate_sprite_system(
         }
     }
 }
+
+pub fn sprite_animation_system (){
+
+}
