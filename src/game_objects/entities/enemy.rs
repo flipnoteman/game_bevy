@@ -39,8 +39,6 @@ impl EnemyBundle {
                     ..default()
                 }
             },
-            util::animation::AnimationTimer(Timer::from_seconds(0.1, TimerMode::Repeating)),
-            AnimationState::MOVING
         ));
     }
 }

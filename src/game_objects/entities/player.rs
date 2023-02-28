@@ -1,11 +1,13 @@
 use bevy::ecs::bundle::Bundle;
 use bevy::sprite::{SpriteSheetBundle, TextureAtlas};
 use std::default::Default;
+use benimator::FrameRate;
+use util::animation::Animation;
 use bevy::asset::{Assets, AssetServer};
 use bevy::math::{Vec2, Vec3};
-use bevy::prelude::{Commands, ResMut, Transform};
+use bevy::prelude::*;
 use bevy::time::{Timer, TimerMode};
-use bevy::utils::default;
+use bevy::asset::{AssetLoader, BoxedFuture, Error, LoadContext, LoadedAsset};
 use player_movement::Controllable;
 
 use crate::game_objects::game_object::Name;
@@ -25,11 +27,23 @@ pub struct PlayerBundle {
     pub model: SpriteSheetBundle,
 }
 
+#[derive(Component, Eq, PartialEq)]
+pub enum PlayerState {
+    RUNNING,
+    IDLE,
+}
+
 impl PlayerBundle {
     /// Spawn our Player Bundle
     pub fn spawn_player( mut commands: Commands,
                             asset_server: ResMut<AssetServer>,
                             texture_atlas_server: ResMut<Assets<TextureAtlas>>) {
+
+        let animation = Animation(benimator::Animation::from_indices(
+           0..=7,
+            FrameRate::from_fps(12.0),
+        ));
+
         commands.spawn((
             PlayerBundle{
             name: Name(("Sam").to_string()),
@@ -38,19 +52,20 @@ impl PlayerBundle {
                 texture_atlas: util::asset_handling::load_texture(
                     asset_server,
                     texture_atlas_server,
-                    "Player Sword Run/Player Sword Run 48x48.png".to_string(),
+                    "Player Sword Idle/Player Sword Idle 48x48.png".to_string(),
                     Vec2::new(48.0, 48.0),
                     8,
                     1,
                 ),
-                transform: bevy::prelude::Transform::from_scale(Vec3::splat(2.0)),
+                transform: Transform::from_scale(Vec3::splat(2.0)),
                 ..default()
             }
         },
-            util::animation::AnimationTimer(Timer::from_seconds(0.1, TimerMode::Repeating)),
             Controllable,
-            AnimationState::IDLE
-        ));
+        ))
+            .insert(animation)
+            .insert(AnimationState::default())
+            .insert(PlayerState::IDLE);
     }
 }
 
