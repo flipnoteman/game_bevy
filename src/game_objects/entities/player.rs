@@ -1,6 +1,6 @@
 use bevy::prelude::*;
-use bevy_asset_loader::prelude::*;
 use crate::util::animation::AnimationTimer;
+use crate::util::asset_handling::PlayerAssets;
 
 /// Unique identifier for Querying for the player attributes
 #[derive(Component)]
@@ -15,27 +15,11 @@ pub enum PlayerState {
     Attacking
 }
 
-/// Uses bevy_asset_loaders asset macros to load and store Texture Atlases for the player
-/// ***May move this to asset_handling***
-#[derive(AssetCollection, Resource)]
-pub struct PlayerAssets {
-    // With the new crate I loaded, you can call this series of macros and it will create and add a
-    // TextureAtlas with the given asset into the TextureAtlas resources
-    #[asset(texture_atlas(tile_size_x = 48.0, tile_size_y = 48.0, columns = 10, rows = 1))]
-    #[asset(path = "Player/Player Sword Idle/Player Sword Idle 48x48.png")]
-    idle: Handle<TextureAtlas>,
-
-    #[asset(texture_atlas(tile_size_x = 48.0, tile_size_y = 48.0, columns = 8, rows = 1))]
-    #[asset(path = "Player/Player Sword Run/Player Sword Run 48x48.png")]
-    run: Handle<TextureAtlas>,
-}
-
 impl Player {
     /// Spawn our Player Bundle
     pub fn spawn_player(
         mut commands: Commands,
         player_assets: Res<PlayerAssets>,
-        texture_atlases: Res<Assets<TextureAtlas>>
     ) {
         // Spawn our texture atlas for animation
         commands.spawn(SpriteSheetBundle {

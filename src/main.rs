@@ -3,7 +3,6 @@ use bevy_asset_loader::prelude::*;
 use crate::game_objects::entities::camera_controller::{move_camera, spawn_camera};
 
 mod game_objects;
-use crate::game_objects::entities::player::PlayerAssets;
 use crate::util::animation::*;
 use crate::util::asset_handling::*;
 use crate::game_objects::entities::player::*;
